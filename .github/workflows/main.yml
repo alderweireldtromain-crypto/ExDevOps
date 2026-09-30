@@ -1,14 +1,26 @@
-name: Hello World Pipeline
+name: Informations Utilisateur
 
-# Déclencheur : la pipeline s'exécute automatiquement sur une action utilisateur, ici un push (commit)
+# Déclenchement automatique de la pipeline (par exemple à chaque commit)
 on: [push]
 
 jobs:
-  hello_world_job:
-    # La VM ou le runner dédié sur lequel s'exécute la pipeline
+  # Premier job : Afficher le nom
+  afficher_nom:
     runs-on: ubuntu-latest
-    
-    # Les différentes tâches (tasks/steps) exécutées par ce job
     steps:
-      - name: Afficher le message
-        run: echo "Hello World"
+      - name: Afficher le nom de famille
+        run: echo "Nom : ${{ vars.NOM }}"
+
+  # Deuxième job : Afficher le prénom
+  afficher_prenom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher le prénom
+        run: echo "Prénom : ${{ vars.PRENOM }}"
+
+  # Troisième job : Afficher l'email
+  afficher_email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher l'adresse email
+        run: echo "Email : ${{ vars.EMAIL }}"
