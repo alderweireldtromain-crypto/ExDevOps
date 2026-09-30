@@ -1,0 +1,14 @@
+name: Hello World Pipeline
+
+# Déclencheur : la pipeline s'exécute automatiquement sur une action utilisateur, ici un push (commit)
+on: [push]
+
+jobs:
+  hello_world_job:
+    # La VM ou le runner dédié sur lequel s'exécute la pipeline
+    runs-on: ubuntu-latest
+    
+    # Les différentes tâches (tasks/steps) exécutées par ce job
+    steps:
+      - name: Afficher le message
+        run: echo "Hello World"
