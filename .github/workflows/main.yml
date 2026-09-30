@@ -1,26 +1,22 @@
 name: Informations Utilisateur
 
-# Déclenchement automatique de la pipeline (par exemple à chaque commit)
 on: [push]
 
 jobs:
-  # Premier job : Afficher le nom
   afficher_nom:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher le nom de famille
-        run: echo "Nom : ${{ vars.NOM }}"
+      run: echo "Nom : ${{ vars.NOM }}"
 
-  # Deuxième job : Afficher le prénom
   afficher_prenom:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher le prénom
-        run: echo "Prénom : ${{ vars.PRENOM }}"
+      run: echo "Prénom : ${{ vars.PRENOM }}"
 
-  # Troisième job : Afficher l'email
   afficher_email:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher l'adresse email
-        run: echo "Email : ${{ vars.EMAIL }}"
+      run: echo "Email : ${{ vars.EMAIL }}"
