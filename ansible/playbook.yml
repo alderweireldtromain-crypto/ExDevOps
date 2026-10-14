@@ -1,0 +1,45 @@
+- name: Deploy Hello World Nginx
+  hosts: web
+  gather_facts: false
+  vars:
+    html_src: "{{ playbook_dir }}/../index.html"
+    html_dir: /tmp/hello-ansible
+    container_name: hello-ansible
+    host_port: "8081"
+  tasks:
+    - name: Ensure HTML directory exists
+      ansible.builtin.file:
+        path: "{{ html_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Deploy Hello World page
+      ansible.builtin.copy:
+        src: "{{ html_src }}"
+        dest: "{{ html_dir }}/index.html"
+        mode: "0644"
+
+    - name: Remove existing container if any
+      ansible.builtin.command: docker rm -f {{ container_name }}
+      failed_when: false
+      changed_when: false
+
+    - name: Run Nginx container with Hello World
+      ansible.builtin.command: >
+        docker run -d --name {{ container_name }}
+        -p {{ host_port }}:80
+        -v {{ html_dir }}:/usr/share/nginx/html:ro
+        nginx:alpine
+
+    - name: Wait for Nginx to be up
+      ansible.builtin.wait_for:
+        port: "{{ host_port }}"
+        delay: 2
+        timeout: 30
+
+    - name: Check Hello World page
+      ansible.builtin.uri:
+        url: "http://localhost:{{ host_port }}/"
+        return_content: true
+      register: page
+      failed_when: "'Hello World' not in page.content"
