@@ -7,16 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher le nom de famille
-      run: echo "Nom : ${{ vars.NOM }}"
+        run: 'echo "Nom : ${{ vars.NOM }}"'
 
   afficher_prenom:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher le prénom
-      run: echo "Prénom : ${{ vars.PRENOM }}"
+        run: 'echo "Prénom : ${{ vars.PRENOM }}"'
 
   afficher_email:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher l'adresse email
-      run: echo "Email : ${{ vars.EMAIL }}"
+        run: 'echo "Email : ${{ vars.EMAIL }}"'
